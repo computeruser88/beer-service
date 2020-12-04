@@ -14,6 +14,7 @@ import java.util.UUID;
 @RestController
 public class BeerController {
 
+    @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId) {
 
         // todo impl
