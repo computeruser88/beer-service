@@ -1,6 +1,7 @@
 package io.github.computeruser88.beerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.computeruser88.beerservice.bootstrap.BeerLoader;
 import io.github.computeruser88.beerservice.services.BeerService;
 import io.github.computeruser88.beerservice.web.model.BeerDto;
 import io.github.computeruser88.beerservice.web.model.BeerStyleEnum;
@@ -46,6 +47,8 @@ class BeerControllerTest {
         BeerDto beerDto = getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
+        given(beerService.saveNewBeer(any())).willReturn(getValidBeerDto());
+
         mockMvc.perform(post("/api/v1/beer/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
@@ -57,6 +60,8 @@ class BeerControllerTest {
 
         BeerDto beerDto = getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
+
+        given(beerService.updateBeer(any(), any())).willReturn(getValidBeerDto());
 
         mockMvc.perform(put("/api/v1/beer/" + UUID.randomUUID().toString())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -70,7 +75,7 @@ class BeerControllerTest {
                 .beerName("My Beer")
                 .beerStyle(BeerStyleEnum.ALE)
                 .price(new BigDecimal("2.99"))
-                .upc(1234328834572L)
+                .upc(BeerLoader.BEER_1_UPC)
                 .build();
     }
 }
