@@ -5,6 +5,7 @@ import io.github.computeruser88.beerservice.repositories.BeerRepository;
 import io.github.computeruser88.beerservice.web.controller.NotFoundException;
 import io.github.computeruser88.beerservice.web.mappers.BeerMapper;
 import io.github.computeruser88.beerservice.web.model.BeerDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -12,12 +13,12 @@ import java.util.UUID;
 /**
  * Created by Jan Balangue on 2/8/21.
  */
+@RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
 
-    private BeerRepository beerRepository;
-
-    private BeerMapper beerMapper;
+    private final BeerRepository beerRepository;
+    private final BeerMapper beerMapper;
 
     @Override
     public BeerDto getById(UUID beerId) {
